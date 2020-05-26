@@ -39,10 +39,10 @@ func main() {
         AcceptAttachments:   true,
     }}
 
-	ct, err := c.CreateTournament(trn)
-	if err != nil {
-		panic(err)
-	}
+    ct, err := c.CreateTournament(trn)
+    if err != nil {
+        panic(err)
+    }
     fmt.Println(ct.Name) // challonge go api mock
 }
 
