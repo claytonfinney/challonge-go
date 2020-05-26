@@ -77,7 +77,6 @@ Time has to be formatted according to RFC3339. Challonge responses use a format 
 #### Naming
 
 Another small "quirk", is that everything is CamelCase for struct fields. `Url`, not `URL`.
-```
 
 Each nested struct is the name of the resource with `Key` appended to the end. For `Tournament`, `TournamentKey`. For `Match`, `MatchKey`.
 
