@@ -68,6 +68,7 @@ trn := challonge.Tournament{challonge.TournamentKey{
     Name: "My Test Tournament",
     Url: "my_test_tournament",
 }}
+```
 
 ##### Time
 
