@@ -2,7 +2,7 @@
 
 A Golang client for the [Challonge web API](https://api.challonge.com/v1).
 
-#### Basic Usage
+### Basic Usage
 ```go
 package main
 
@@ -48,9 +48,9 @@ func main() {
 
 ```
 
-#### Small Quirks
+### Small Quirks
 
-##### Promoted Structs and New Struct Creation
+#### Promoted Structs and New Struct Creation
 
 The structure of Challonge's API responses are best served with promoted struct fields in Go. In the case of any GETs, you don't need to worry about the promoted fields.
 
@@ -70,18 +70,18 @@ trn := challonge.Tournament{challonge.TournamentKey{
 }}
 ```
 
-##### Time
+#### Time
 
 Time has to be formatted according to RFC3339. Challonge responses use a format of `2020-05-26T14:34:55.806-04:00`, so use this too with `time.Parse()`!
 
-##### Namin
-g
+#### Naming
+
 Another small "quirk", is that everything is CamelCase for struct fields. `Url`, not `URL`.
 ```
 
 Each nested struct is the name of the resource with `Key` appended to the end. For `Tournament`, `TournamentKey`. For `Match`, `MatchKey`.
 
-#### Trying a Different Approach to Null Types in Go
+### Trying a Different Approach to Null Types in Go
 
 I dreaded making this package because the documentation for the Challonge API is a bit lacking, and it seems like any key in a response could be null at any given time. A commonly suggested way to tackle nullable JSON values in Go is to use pointers in the response. In my opinion, requiring the user to first check if the value is nil for each struct field they wish to process seemed ridiculous. Using omitempty seemed fine, but empty string and null are two different things, and Go doesn't really provide a way to differentiate between the two.
 
@@ -110,9 +110,9 @@ func main() {
 }
 ```
 
-#### Examples
+### Examples
 
 For the best examples of how to use all the various functions, refer to the example program provided in [examples/](https://github.com/claytonfinney/challonge-go/tree/master/examples), then the unit tests.
 
-#### Known Issues With the API
+### Known Issues With the API
 * You cannot add an actual file via the Match Attachments API, but you can still update the URL and description. Challonge throws a 500 when you try via curl or anything else.
