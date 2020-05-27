@@ -7,9 +7,9 @@ import (
 )
 
 func main() {
-	c := NewChallongeClient(os.Getenv("CHALLONGE_USERNAME"), os.Getenv("CHALLONGE_API_KEY"))
+	c := challonge.NewChallongeClient(os.Getenv("CHALLONGE_USERNAME"), os.Getenv("CHALLONGE_API_KEY"))
 	tme, _ := time.Parse(time.RFC3339, "2020-05-13T19:45:07.000Z")
-	trn := &Tournament{TournamentKey{
+	trn := &challonge.Tournament{challonge.TournamentKey{
 		Name:                "challonge go api mock",
 		TournamentType:      "single elimination",
 		Url:                 "challonge_go_api_mock",
@@ -26,11 +26,11 @@ func main() {
 		panic(err)
 	}
 
-	p := BulkParticipants{}
-	p.Participants = append(p.Participants, BulkParticipant{Name: "Player1", Seed: 1, Misc: "Player1 is from Nairobi."})
-	p.Participants = append(p.Participants, BulkParticipant{Name: "Player2", Seed: 2, Misc: "Player2 is from Delhi."})
-	p.Participants = append(p.Participants, BulkParticipant{Name: "Player3", Seed: 3, Misc: "Player3 is from Montpellier."})
-	p.Participants = append(p.Participants, BulkParticipant{Name: "Player4", Seed: 4, Misc: "Player4 is from Shanghai."})
+	p := challonge.BulkParticipants{}
+	p.Participants = append(p.Participants, challonge.BulkParticipant{Name: "Player1", Seed: 1, Misc: "Player1 is from Nairobi."})
+	p.Participants = append(p.Participants, challonge.BulkParticipant{Name: "Player2", Seed: 2, Misc: "Player2 is from Delhi."})
+	p.Participants = append(p.Participants, challonge.BulkParticipant{Name: "Player3", Seed: 3, Misc: "Player3 is from Montpellier."})
+	p.Participants = append(p.Participants, challonge.BulkParticipant{Name: "Player4", Seed: 4, Misc: "Player4 is from Shanghai."})
 
 	_, err = c.BulkAddParticipants(ct.Url, &p)
 	if err != nil {
@@ -50,7 +50,7 @@ func main() {
 	mid := ms[0].Id
 	p1id := ms[0].Player1Id
 
-	mk := &Match{MatchKey{
+	mk := &challonge.Match{challonge.MatchKey{
 		ScoresCsv: "3-1",
 		WinnerId:  p1id,
 	}}
@@ -60,7 +60,7 @@ func main() {
 		panic(err)
 	}
 
-	ma := &MatchAttachment{MatchAttachmentKey{
+	ma := &challonge.MatchAttachment{challonge.MatchAttachmentKey{
 		Url:         "https://google.com",
 		Description: "this is a match attachment!",
 	}}
