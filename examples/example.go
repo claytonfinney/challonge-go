@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"time"
 
 	"github.com/claytonfinney/challonge-go"
 )
@@ -9,7 +11,7 @@ import (
 func main() {
 	c := challonge.NewChallongeClient(os.Getenv("CHALLONGE_USERNAME"), os.Getenv("CHALLONGE_API_KEY"))
 	tme, _ := time.Parse(time.RFC3339, "2020-05-13T19:45:07.000Z")
-	trn := &challonge.Tournament{challonge.TournamentKey{
+	trn := challonge.Tournament{challonge.TournamentKey{
 		Name:                "challonge go api mock",
 		TournamentType:      "single elimination",
 		Url:                 "challonge_go_api_mock",
@@ -21,7 +23,7 @@ func main() {
 		AcceptAttachments:   true,
 	}}
 
-	ct, err := c.CreateTournament(trn)
+	ct, err := c.CreateTournament(&trn)
 	if err != nil {
 		panic(err)
 	}
@@ -50,22 +52,22 @@ func main() {
 	mid := ms[0].Id
 	p1id := ms[0].Player1Id
 
-	mk := &challonge.Match{challonge.MatchKey{
+	mk := challonge.Match{challonge.MatchKey{
 		ScoresCsv: "3-1",
 		WinnerId:  p1id,
 	}}
 
-	_, err = c.UpdateMatch(ct.Url, mid, mk)
+	_, err = c.UpdateMatch(ct.Url, mid, &mk)
 	if err != nil {
 		panic(err)
 	}
 
-	ma := &challonge.MatchAttachment{challonge.MatchAttachmentKey{
+	ma := challonge.MatchAttachment{challonge.MatchAttachmentKey{
 		Url:         "https://google.com",
 		Description: "this is a match attachment!",
 	}}
 
-	_, err = c.CreateMatchAttachment(ct.Url, mid, ma)
+	_, err = c.CreateMatchAttachment(ct.Url, mid, &ma)
 	if err != nil {
 		panic(err)
 	}
@@ -74,4 +76,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	if challonge.IsNull(ct.Url) {
+		fmt.Println("url is null")
+	}
+
+	fmt.Println(ct.Name)
 }

@@ -27,7 +27,7 @@ func main() {
     if err != nil {
         panic(err)    
     }
-    trn := &challonge.Tournament{challonge.TournamentKey{
+    trn := challonge.Tournament{challonge.TournamentKey{
         Name:                "challonge go api mock",
         TournamentType:      "single elimination",
         Url:                 "challonge_go_api_mock",
@@ -39,7 +39,7 @@ func main() {
         AcceptAttachments:   true,
     }}
 
-    ct, err := c.CreateTournament(trn)
+    ct, err := c.CreateTournament(&trn)
     if err != nil {
         panic(err)
     }
